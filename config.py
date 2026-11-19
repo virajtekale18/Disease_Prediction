@@ -6,15 +6,11 @@ instead of hunting through five scripts.
 """
 from pathlib import Path
 
-# ---------------------------------------------------------------------------
+
 # Paths
-# ---------------------------------------------------------------------------
-# PROJECT_DIR is the folder this file lives in (disease_prediction/).
-# Using __file__ means the scripts work no matter which folder you run them from.
+
 PROJECT_DIR = Path(__file__).resolve().parent
 
-# The raw CSVs sit one level up, in "ML Project/". We read them in place and
-# never modify them.
 DATA_DIR = PROJECT_DIR.parent
 TRAIN_CSV = DATA_DIR / "Training.csv"
 TEST_CSV = DATA_DIR / "Testing.csv"
@@ -24,27 +20,21 @@ MODELS_DIR = PROJECT_DIR / "models"
 RESULTS_DIR = PROJECT_DIR / "results"
 VIS_DIR = PROJECT_DIR / "visualizations"
 
-# ---------------------------------------------------------------------------
+
 # Dataset facts (confirmed by inspecting the files, not assumed)
-# ---------------------------------------------------------------------------
+
 TARGET_COL = "prognosis"   # the only text column; holds the disease name
 
-# ---------------------------------------------------------------------------
-# Experiment settings
-# ---------------------------------------------------------------------------
+
+
 RANDOM_STATE = 42          # fixed seed so every run gives the same split/results
 TEST_SIZE = 0.25           # share of unique patterns held out for the final test
 
-# Cross-validation. After de-duplication the smallest disease has only 5 unique
-# patterns, so ~3-4 land in training. 5 folds would leave some folds without a
-# single example of that disease, so we use 3 folds and repeat 5 times with
-# different shuffles to get a stable average (15 fits per model).
+
 CV_FOLDS = 3
 CV_REPEATS = 5
 
-# "Missing symptom" robustness test. Real patients rarely report every symptom.
-# Because the clean data is so easy, we also score models after randomly hiding
-# this many of each validation/test patient's symptoms (always keeping >= 1).
+
 SYMPTOMS_TO_HIDE = 2
 
 # Chart colours (a single blue for bars, white->blue for heatmaps)
