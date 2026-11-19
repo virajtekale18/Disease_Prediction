@@ -16,7 +16,7 @@ from prediction import MIN_RECOMMENDED_SYMPTOMS, load_bundle, predict, readable
 st.set_page_config(page_title="Disease Prediction (educational)", page_icon="🩺")
 st.title("Symptom-based Disease Prediction")
 
-# ---- Load model -----------------------------------------------------------
+# Load model
 try:
     bundle = load_bundle()
 except (FileNotFoundError, ValueError) as e:
@@ -26,7 +26,7 @@ except (FileNotFoundError, ValueError) as e:
 features = bundle["feature_columns"]
 label_to_name = {readable(f): f for f in features}     # 'Skin rash' -> 'skin_rash'
 
-# ---- Input ------------------------------------------------------------------
+#  Input 
 selected = st.multiselect(
     "Select the symptoms you observe (type to search):",
     options=sorted(label_to_name),
@@ -37,7 +37,7 @@ top_k = st.slider("How many possible diseases to show", 3, 10, 5)
 if len(selected) and len(selected) < MIN_RECOMMENDED_SYMPTOMS:
     st.info(f"Tip: results are more reliable with at least {MIN_RECOMMENDED_SYMPTOMS} symptoms.")
 
-# ---- Predict ----------------------------------------------------------------
+# Predict 
 if st.button("Predict", type="primary", disabled=not selected):
     try:
         result = predict([label_to_name[s] for s in selected], top_k=top_k)
