@@ -25,9 +25,7 @@ import numpy as np
 
 import config
 
-DISCLAIMER = ("This is an educational machine-learning prototype trained on a small "
-              "synthetic dataset. It is NOT a medical diagnosis and must not replace "
-              "advice from a qualified doctor. If you feel unwell, seek medical care.")
+
 MIN_RECOMMENDED_SYMPTOMS = 3
 
 
